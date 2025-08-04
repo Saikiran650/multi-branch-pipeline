@@ -1,5 +1,9 @@
+<!DOCTYPE html>
 <html>
+<head>
+    <title>Welcome</title>
+</head>
 <body>
-<h2>Hellow world!</h2>
+    <h1>Welcome to DevOps</h1>
 </body>
 </html>
