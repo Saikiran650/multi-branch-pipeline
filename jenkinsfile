@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('build') {
+            steps {
+                echo "mvn clean package"
+            }
+        }
+
+        stage('test') {
+            when {
+                branch 'dev'
+            }
+            steps {
+                echo "testing"
+            }
+        }
+
+        stage('deploy to uat') {
+            when {
+                branch 'uat'
+            }
+            steps {
+                echo "deploy to uat"
+            }
+        }
+
+        stage('deploy to prod') {
+            when {
+                branch 'prod'
+            }
+            steps {
+                echo "deploy to prod"
+            }
+        }
+    }
+}
+
