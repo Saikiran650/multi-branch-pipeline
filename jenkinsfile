@@ -2,38 +2,53 @@ pipeline {
     agent any
 
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-                echo "mvn clean package"
+                echo "Running build step on branch: ${env.BRANCH_NAME}"
+                sh 'mvn clean package'  // or whatever build tool you use
             }
         }
 
-        stage('test') {
+        stage('Test') {
             when {
                 branch 'dev'
             }
             steps {
-                echo "testing"
+                echo "Running tests on dev branch"
+                // Add testing steps here
             }
         }
 
-        stage('deploy to uat') {
+        stage('Deploy to UAT') {
             when {
                 branch 'uat'
             }
             steps {
-                echo "deploy to uat"
+                echo "Deploying to UAT environment"
+                // Add UAT deployment steps here
             }
         }
 
-        stage('deploy to prod') {
+        stage('Deploy to Prod') {
             when {
                 branch 'prod'
             }
             steps {
-                echo "deploy to prod"
+                echo "Deploying to Production"
+                // Add production deployment steps here
             }
         }
     }
-}
 
+    post {
+        always {
+            echo "Pipeline finished on branch: ${env.BRANCH_NAME}"
+        }
+        failure {
+            echo "Pipeline failed"
+        }
+        success {
+            echo "Pipeline succeeded"
+        }
+    }
+}
